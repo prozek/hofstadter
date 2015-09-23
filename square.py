@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 import csv
 
 t  = 1
-L  = 8
-NB = 99
+L  = 20
+NB = 49
 N2 = L*L 
 
 def neig(i):
@@ -28,30 +28,28 @@ def neig(i):
 
     return res
 
+def ypos(x):
+    rest = x % L
+    return (x-rest)/L
+
+
 def perFac(i,j,B):
     n = neig(i)
     if i>j:
         if j==n[0]:
-            return np.exp(  1j * B * 2 * np.pi )
+            return np.exp(  1j * B * 2 * np.pi * (ypos(i)-1) )
         elif j==n[1]:
-            return np.exp( -1j * B * 2 * np.pi )
-        elif j==n[2]:
-            return np.exp(  1j * B * 2 * np.pi )
-        elif j==n[3]:
-            return np.exp(  -1j * B * 2 * np.pi )
+            return np.exp( -1j * B * 2 * np.pi * (ypos(i)-1) )
         else:
             return 1
     else:
         if j==n[0]:
-            return np.exp( -1j * B * 2 * np.pi )
+            return np.exp( -1j * B * 2 * np.pi * (ypos(i)-1) )
         elif j==n[1]:
-            return np.exp(  1j * B * 2 * np.pi )
-        elif j==n[2]:
-            return np.exp( -1j * B * 2 * np.pi )
-        elif j==n[3]:
-            return np.exp(  1j * B * 2 * np.pi )
+            return np.exp(  1j * B * 2 * np.pi * (ypos(i)-1) )
         else:
             return 1
+
 H = [[0 for i in range(N2)] for i in range(N2)] 
 
 def tij(x,y,B):
